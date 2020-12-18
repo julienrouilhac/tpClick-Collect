@@ -30,7 +30,7 @@ class Magasin
     private $adresse;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Produit::class, mappedBy="magasin")
+     * @ORM\OneToMany(targetEntity=Produit::class, mappedBy="magasin")
      */
     private $produits;
 
@@ -68,6 +68,10 @@ class Magasin
         return $this;
     }
 
+    public function __tostring(){
+        return $this->name;
+    }
+
     /**
      * @return Collection|Produit[]
      */
@@ -80,7 +84,7 @@ class Magasin
     {
         if (!$this->produits->contains($produit)) {
             $this->produits[] = $produit;
-            $produit->addMagasin($this);
+            $produit->setMagasin($this);
         }
 
         return $this;
@@ -89,13 +93,12 @@ class Magasin
     public function removeProduit(Produit $produit): self
     {
         if ($this->produits->removeElement($produit)) {
-            $produit->removeMagasin($this);
+            // set the owning side to null (unless already changed)
+            if ($produit->getMagasin() === $this) {
+                $produit->setMagasin(null);
+            }
         }
 
         return $this;
-    }
-    
-    public function __tostring(){
-        return $this->name;
     }
 }

@@ -25,11 +25,6 @@ class Produit
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Magasin::class, inversedBy="produits")
-     */
-    private $magasin;
-
-    /**
      * @ORM\Column(type="integer")
      */
     private $stock;
@@ -39,9 +34,14 @@ class Produit
      */
     private $commande;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Magasin::class, inversedBy="produits")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $magasin;
+
     public function __construct()
     {
-        $this->magasin = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -57,30 +57,6 @@ class Produit
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Magasin[]
-     */
-    public function getMagasin(): Collection
-    {
-        return $this->magasin;
-    }
-
-    public function addMagasin(Magasin $magasin): self
-    {
-        if (!$this->magasin->contains($magasin)) {
-            $this->magasin[] = $magasin;
-        }
-
-        return $this;
-    }
-
-    public function removeMagasin(Magasin $magasin): self
-    {
-        $this->magasin->removeElement($magasin);
 
         return $this;
     }
@@ -112,4 +88,17 @@ class Produit
     public function __tostring(){
         return $this->name;
     }
+
+    public function getMagasin(): ?Magasin
+    {
+        return $this->magasin;
+    }
+
+    public function setMagasin(?Magasin $magasin): self
+    {
+        $this->magasin = $magasin;
+
+        return $this;
+    }
+
 }

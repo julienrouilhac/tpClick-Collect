@@ -11,6 +11,7 @@
                 <th>Id</th>
                 <th>Name</th>
                 <th>Stock</th>
+                <th>Magasin</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -20,7 +21,7 @@
                 <td>{{ produit.id }}</td>
                 <td>{{ produit.name }}</td>
                 <td>{{ produit.stock }}</td>
-                <td>{{ produit}}</td>
+                <td>{{ produit.magasin}}</td>
                 <td>
                     <a href="{{ path('produit_show', {'id': produit.id}) }}">show</a>
                     <a href="{{ path('produit_edit', {'id': produit.id}) }}">edit</a>

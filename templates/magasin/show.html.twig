@@ -19,6 +19,12 @@
                 <th>Adresse</th>
                 <td>{{ magasin.adresse }}</td>
             </tr>
+            <tr>
+                <th>Produit</th>
+                {% for next in magasin.produits %}
+                <td>{{ next }}</td>
+                {% endfor %}
+            </tr>
         </tbody>
     </table>
 

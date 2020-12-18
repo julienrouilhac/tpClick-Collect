@@ -32,6 +32,7 @@
         {% endfor %}
         </tbody>
     </table>
-
+   {% if is_granted('ROLE_ADMIN') %}
     <a href="{{ path('magasin_new') }}">Create new</a>
+   {% endif %} 
 {% endblock %}

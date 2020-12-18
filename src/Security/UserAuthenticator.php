@@ -60,6 +60,8 @@ class UserAuthenticator extends AbstractFormLoginAuthenticator implements Passwo
         return $credentials;
     }
 
+
+
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
         $token = new CsrfToken('authenticate', $credentials['csrf_token']);
@@ -96,7 +98,7 @@ class UserAuthenticator extends AbstractFormLoginAuthenticator implements Passwo
             return new RedirectResponse($targetPath);
         }
 
-        // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
+        return new RedirectResponse($this->urlGenerator->generate('magasin_index'));
         throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 

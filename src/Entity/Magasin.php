@@ -94,4 +94,8 @@ class Magasin
 
         return $this;
     }
+    
+    public function __tostring(){
+        return $this->name;
+    }
 }

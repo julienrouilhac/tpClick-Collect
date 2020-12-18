@@ -34,9 +34,15 @@ class Magasin
      */
     private $produits;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Commande::class, mappedBy="magasin")
+     */
+    private $commandes;
+
     public function __construct()
     {
         $this->produits = new ArrayCollection();
+        $this->commandes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -96,6 +102,36 @@ class Magasin
             // set the owning side to null (unless already changed)
             if ($produit->getMagasin() === $this) {
                 $produit->setMagasin(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Commande[]
+     */
+    public function getCommandes(): Collection
+    {
+        return $this->commandes;
+    }
+
+    public function addCommande(Commande $commande): self
+    {
+        if (!$this->commandes->contains($commande)) {
+            $this->commandes[] = $commande;
+            $commande->setMagasin($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommande(Commande $commande): self
+    {
+        if ($this->commandes->removeElement($commande)) {
+            // set the owning side to null (unless already changed)
+            if ($commande->getMagasin() === $this) {
+                $commande->setMagasin(null);
             }
         }
 

@@ -20,15 +20,16 @@ class Commande
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity=Produit::class, mappedBy="commande")
+     * @ORM\ManyToOne(targetEntity=Magasin::class, inversedBy="commandes")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $magasin;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Produit::class, inversedBy="commandes")
      */
     private $produit;
 
-    /**
-     * @ORM\OneToOne(targetEntity=Name::class, cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $produit_id;
 
     public function __construct()
     {
@@ -38,6 +39,18 @@ class Commande
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getMagasin(): ?Magasin
+    {
+        return $this->magasin;
+    }
+
+    public function setMagasin(?Magasin $magasin): self
+    {
+        $this->magasin = $magasin;
+
+        return $this;
     }
 
     /**
@@ -52,7 +65,6 @@ class Commande
     {
         if (!$this->produit->contains($produit)) {
             $this->produit[] = $produit;
-            $produit->setCommande($this);
         }
 
         return $this;
@@ -60,25 +72,9 @@ class Commande
 
     public function removeProduit(Produit $produit): self
     {
-        if ($this->produit->removeElement($produit)) {
-            // set the owning side to null (unless already changed)
-            if ($produit->getCommande() === $this) {
-                $produit->setCommande(null);
-            }
-        }
+        $this->produit->removeElement($produit);
 
         return $this;
     }
 
-    public function getProduitId(): ?Name
-    {
-        return $this->produit_id;
-    }
-
-    public function setProduitId(Name $produit_id): self
-    {
-        $this->produit_id = $produit_id;
-
-        return $this;
-    }
 }

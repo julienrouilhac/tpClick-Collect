@@ -20,6 +20,8 @@ class MagasinController extends AbstractController
      */
     public function index(MagasinRepository $magasinRepository): Response
     {
+
+        
         return $this->render('magasin/index.html.twig', [
             'magasins' => $magasinRepository->findAll(),
         ]);

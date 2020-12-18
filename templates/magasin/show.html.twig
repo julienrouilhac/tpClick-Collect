@@ -22,7 +22,14 @@
             <tr>
                 <th>Produit</th>
                 {% for next in magasin.produits %}
-                <td>{{ next }}</td>
+                <td>{{ next }} 
+
+                {% if next.stock > 0 %}
+                (En stock)
+                {% else %}
+                (Pas en stock)
+                {% endif %}
+                </td>
                 {% endfor %}
             </tr>
         </tbody>

@@ -29,10 +29,6 @@ class Produit
      */
     private $stock;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Commande::class, inversedBy="produit")
-     */
-    private $commande;
 
     /**
      * @ORM\ManyToOne(targetEntity=Magasin::class, inversedBy="produits")
@@ -40,8 +36,16 @@ class Produit
      */
     private $magasin;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Commande::class, mappedBy="produit")
+     */
+    private $commandes;
+
+
+
     public function __construct()
     {
+        $this->commandes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -73,18 +77,6 @@ class Produit
         return $this;
     }
 
-    public function getCommande(): ?Commande
-    {
-        return $this->commande;
-    }
-
-    public function setCommande(?Commande $commande): self
-    {
-        $this->commande = $commande;
-
-        return $this;
-    }
-
     public function __tostring(){
         return $this->name;
     }
@@ -100,5 +92,34 @@ class Produit
 
         return $this;
     }
+
+    /**
+     * @return Collection|Commande[]
+     */
+    public function getCommandes(): Collection
+    {
+        return $this->commandes;
+    }
+
+    public function addCommande(Commande $commande): self
+    {
+        if (!$this->commandes->contains($commande)) {
+            $this->commandes[] = $commande;
+            $commande->addProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommande(Commande $commande): self
+    {
+        if ($this->commandes->removeElement($commande)) {
+            $commande->removeProduit($this);
+        }
+
+        return $this;
+    }
+
+
 
 }

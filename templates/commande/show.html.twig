@@ -11,6 +11,23 @@
                 <th>Id</th>
                 <td>{{ commande.id }}</td>
             </tr>
+            <tr>
+                <th>Magasin</th>
+                <td>{{ commande.magasin }}</td>
+            </tr>
+            <tr>
+                <th>Produit</th>
+                {% for next in commande.produit %}
+                <td>{{ next }} 
+
+                {% if next.stock > 0 %}
+                (En stock)
+                {% else %}
+                (Pas en stock)
+                {% endif %}
+                </td>
+                {% endfor %}
+            </tr>
         </tbody>
     </table>
 

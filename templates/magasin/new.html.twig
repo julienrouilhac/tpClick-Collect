@@ -1,11 +1,14 @@
-{% extends 'base.html.twig' %}
+{% if is_granted('ROLE_ADMIN') %}
+    {% extends 'base.html.twig' %}
 
-{% block title %}New Magasin{% endblock %}
+    {% block title %}New Magasin{% endblock %}
 
-{% block body %}
-    <h1>Create new Magasin</h1>
+    {% block body %}
+        <h1>Create new Magasin</h1>
 
-    {{ include('magasin/_form.html.twig') }}
+        {{ include('magasin/_form.html.twig') }}
 
-    <a href="{{ path('magasin_index') }}">back to list</a>
-{% endblock %}
+        <a href="{{ path('magasin_index') }}">back to list</a>
+    {% endblock %}
+
+{% endif %} 

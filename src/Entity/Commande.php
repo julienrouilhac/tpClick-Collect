@@ -36,6 +36,12 @@ class Commande
      */
     private $user;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Horaire::class, inversedBy="commande")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $horaire;
+
 
     public function __construct()
     {
@@ -91,6 +97,18 @@ class Commande
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getHoraire(): ?Horaire
+    {
+        return $this->horaire;
+    }
+
+    public function setHoraire(?Horaire $horaire): self
+    {
+        $this->horaire = $horaire;
 
         return $this;
     }

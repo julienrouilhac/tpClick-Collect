@@ -1,9 +1,10 @@
-{% if is_granted('ROLE_ADMIN') %}
-    {% extends 'base.html.twig' %}
 
-    {% block title %}Edit Magasin{% endblock %}
+{% extends 'base.html.twig' %}
 
-    {% block body %}
+{% block title %}Edit Magasin{% endblock %}
+
+{% block body %}
+    {% if is_granted('ROLE_ADMIN') %}
         <h1>Edit Magasin</h1>
 
         {{ include('magasin/_form.html.twig', {'button_label': 'Update'}) }}
@@ -11,5 +12,5 @@
         <a href="{{ path('magasin_index') }}">back to list</a>
 
         {{ include('magasin/_delete_form.html.twig') }}
-    {% endblock %}
-{% endif %} 
+    {% endif %} 
+{% endblock %}

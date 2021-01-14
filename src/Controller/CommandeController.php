@@ -25,7 +25,7 @@ class CommandeController extends AbstractController
                 "user" => $this->getUser()
             ]),
         ]);
-    }5+
+    }
 
     /**
      * @Route("/new", name="commande_new", methods={"GET","POST"})

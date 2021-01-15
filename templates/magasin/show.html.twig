@@ -21,16 +21,19 @@
             </tr>
             <tr>
                 <th>Produit</th>
+                <td>
                 {% for next in magasin.produits %}
-                <td>{{ next }} 
+                <br>
+                {{ next }} 
 
                 {% if next.stock > 0 %}
                 (En stock)
                 {% else %}
                 (Pas en stock)
                 {% endif %}
-                </td>
+               
                 {% endfor %}
+                 </td>
             </tr>
         </tbody>
     </table>
@@ -39,6 +42,7 @@
 
  {% if is_granted('ROLE_ADMIN') %}
     <a href="{{ path('magasin_edit', {'id': magasin.id}) }}">edit</a>
+
 {% endif %}
     {{ include('magasin/_delete_form.html.twig') }}
 {% endblock %}

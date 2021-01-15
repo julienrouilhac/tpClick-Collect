@@ -1,14 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Commande index{% endblock %}
+{% block title %}Toutes vos commandes{% endblock %}
 
 {% block body %}
-    <h1>Commande index</h1>
+    <h1>Toutes vos commandes</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Date</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -16,6 +17,7 @@
         {% for commande in commandes %}
             <tr>
                 <td>{{ commande.id }}</td>
+                <td>{{ commande.reservation }}</td>
                 <td>
                     <a href="{{ path('commande_show', {'id': commande.id}) }}">show</a>
                     <a href="{{ path('commande_edit', {'id': commande.id}) }}">edit</a>
@@ -30,7 +32,7 @@
     </table>
 
 {% if is_granted('ROLE_CLIENT') or is_granted('ROLE_ADMIN')  %}
-    <a href="{{ path('commande_new') }}">Create new</a>
+    <a href="{{ path('commande_new') }}">Créer une nouvelle commande</a>
 
    {% endif %} 
 

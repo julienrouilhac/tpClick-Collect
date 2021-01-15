@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
 
-{% block title %}Magasin index{% endblock %}
+{% block title %}Liste des magasins{% endblock %}
 
 
 {% block body %}
-    <h1>Magasin index</h1>
+    <h1>Liste des magasins</h1>
 
 
 <style>
@@ -17,7 +17,7 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
+                <th>Nom</th>
                 <th>Adresse</th>
                 <th>actions</th>
             </tr>
@@ -43,6 +43,6 @@
         </tbody>
     </table>
    {% if is_granted('ROLE_ADMIN') %}
-    <a href="{{ path('magasin_new') }}">Create new</a>
+    <a href="{{ path('magasin_new') }}">Ajouter un magasin</a>
    {% endif %} 
 {% endblock %}

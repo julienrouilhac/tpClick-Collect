@@ -14,7 +14,7 @@ class MagasinType extends AbstractType
         $builder
             ->add('name')
             ->add('adresse')
-            ->add('produits')
+            //->add('produits')
         ;
     }
 

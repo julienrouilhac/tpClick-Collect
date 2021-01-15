@@ -37,10 +37,9 @@ class Commande
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Horaire::class, inversedBy="commande")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $horaire;
+    private $reservation;
 
 
     public function __construct()
@@ -101,14 +100,14 @@ class Commande
         return $this;
     }
 
-    public function getHoraire(): ?Horaire
+    public function getReservation(): ?string
     {
-        return $this->horaire;
+        return $this->reservation;
     }
 
-    public function setHoraire(?Horaire $horaire): self
+    public function setReservation(?string $reservation): self
     {
-        $this->horaire = $horaire;
+        $this->reservation = $reservation;
 
         return $this;
     }

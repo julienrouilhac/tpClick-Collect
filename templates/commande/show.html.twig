@@ -16,6 +16,10 @@
                 <td>{{ commande.magasin }}</td>
             </tr>
             <tr>
+                <th>Réservé pour </th>
+                <td>{{ commande.reservation }}</td>
+            </tr>
+            <tr>
                 <th>Produit</th>
                 {% for next in commande.produit %}
                 <td>{{ next }} 

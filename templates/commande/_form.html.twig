@@ -1,4 +1,35 @@
 {{ form_start(form) }}
     {{ form_widget(form) }}
+    <label for="start">Date de réservation :</label>
+    <input type="date" id="start" name="date"
+       value="2021-01-15"
+       min="2021-01-15" max="2023-01-01">
+    <label for="pet-select">Choisissez un horaire:</label>
+    <select name="heure" id="pet-select">
+        <option value="8h30">8h30</option>
+        <option value="9h">9h</option>
+        <option value="9h30">9h30</option>
+        <option value="10h">10h</option>
+        <option value="10h30">10h30</option>
+        <option value="11h">11h</option>
+        <option value="11h30">11h30</option>
+        <option value="12h">12h</option>
+        <option value="12h30">12h30</option>
+        <option value="13h">13h</option>
+        <option value="13h30">13h30</option>
+        <option value="14h">14h</option>
+        <option value="14h30">14h30</option>
+        <option value="15h">15h</option>
+        <option value="15h30">15h30</option>
+        <option value="16h">16h</option>
+        <option value="16h30">16h30</option>
+        <option value="17h">17h</option>
+        <option value="17h30">17h30</option>
+        <option value="18h">18h</option>
+        <option value="18h30">18h30</option>
+        <option value="19h">19h</option>
+        <option value="19h30">19h30</option>
+        <option value="20h">20h</option>
+    </select>
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

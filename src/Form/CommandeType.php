@@ -14,7 +14,7 @@ class CommandeType extends AbstractType
         $builder
             ->add('produit')
             ->add('magasin')
-            ->add('horaire')
+            
         ;
     }
 

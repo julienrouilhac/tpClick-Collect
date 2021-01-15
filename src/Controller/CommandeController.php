@@ -35,8 +35,9 @@ class CommandeController extends AbstractController
         $commande = new Commande();
         $form = $this->createForm(CommandeType::class, $commande);
         $form->handleRequest($request);
-
+        $date=$request->request->get('date').' '.$request->request->get('heure');
         if ($form->isSubmitted() && $form->isValid()) {
+            $commande->setReservation($date);
             $commande->setUser($this->getUser());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($commande);
@@ -69,7 +70,9 @@ class CommandeController extends AbstractController
         $form = $this->createForm(CommandeType::class, $commande);
         $form->handleRequest($request);
 
+        $date=$request->request->get('date').' '.$request->request->get('heure');
         if ($form->isSubmitted() && $form->isValid()) {
+            $commande->setReservation($date);
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('commande_index');

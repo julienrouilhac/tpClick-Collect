@@ -8,7 +8,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 /**
- * @ApiResource()
  * @ORM\Entity(repositoryClass=HoraireRepository::class)
  */
 class Horaire

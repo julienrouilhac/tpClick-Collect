@@ -5,17 +5,34 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiProperty;
 
 /**
+ * @ApiResource(
+ * denormalizationContext={"groups"={"user"}},
+ *       collectionOperations={
+ *         "get"={"security_post_denormalize"="is_granted('ROLE_ADMIN') or (object.owner == user and previous_object.owner == user)"},
+ *         "post",
+ *     },
+ *      itemOperations={
+ *         "get",
+ *         "put"={"security_post_denormalize"="is_granted('ROLE_ADMIN') or (object.owner == user and previous_object.owner == user)"},
+ *         "delete"={"security_post_denormalize"="is_granted('ROLE_ADMIN') or (object.owner == user and previous_object.owner == user)"},
+ *         "patch"={"security_post_denormalize"="is_granted('ROLE_ADMIN') or (object.owner == user and previous_object.owner == user)"},
+ *     }
+ * )
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
 class User implements UserInterface
 {
     /**
+     * 
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -23,6 +40,7 @@ class User implements UserInterface
     private $id;
 
     /**
+     * @Groups({"user"})
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private $email;
@@ -30,9 +48,10 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    private $roles = ["ROLE_CLIENT"];
 
     /**
+     * @Groups({"user"})
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
@@ -67,7 +86,7 @@ class User implements UserInterface
 
     /**
      * A visual identifier that represents this user.
-     *
+     * 
      * @see UserInterface
      */
     public function getUsername(): string

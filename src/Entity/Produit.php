@@ -5,15 +5,30 @@ namespace App\Entity;
 use App\Repository\ProduitRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
+
+
 /**
- * @ApiResource()
+* @ApiResource(
+*    denormalizationContext={"groups"={"produit"}},
+ *      itemOperations={
+ *         "get",
+ *         "put"={"security_post_denormalize"="is_granted('ROLE_ADMIN') or (object.owner == user and previous_object.owner == user)"},
+ *         "delete"={"security_post_denormalize"="is_granted('ROLE_ADMIN') or (object.owner == user and previous_object.owner == user)"},
+ *         "patch"={"security_post_denormalize"="is_granted('ROLE_ADMIN') or (object.owner == user and previous_object.owner == user)"},
+ *     }
+ * )
  * @ORM\Entity(repositoryClass=ProduitRepository::class)
  */
+
+
+
 class Produit
 {
     /**
+     * 
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -21,24 +36,30 @@ class Produit
     private $id;
 
     /**
+     * 
+     * @Groups({"produit"})
+     * @Groups({"Magasin"})
      * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
+     * @Groups({"produit"})
+     * @Groups({"Magasin"})
      * @ORM\Column(type="integer")
      */
     private $stock;
 
 
     /**
-     * @ORM\ManyToOne(targetEntity=Magasin::class, inversedBy="produits")
+     * @Groups({"produit"})
+     * @ORM\ManyToOne(targetEntity=Magasin::class, inversedBy="produits", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $magasin;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Commande::class, mappedBy="produit")
+     * @ORM\ManyToMany(targetEntity=Commande::class, mappedBy="produit", cascade={"remove"})
      */
     private $commandes;
 
